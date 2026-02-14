@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Our Love Journey ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#ff9ab0,#ff5f8f);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+color:red;
+overflow:hidden;
+transition:background 2s;
+}
+
+/* intro */
+#intro{
+position:absolute;
+background:linear-gradient(135deg,#ff004c,#ff5f8f);
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:70px;
+color:white;
+letter-spacing:8px;
+animation:introAnim 4s forwards;
+z-index:5;
+}
+@keyframes introAnim{
+0%{opacity:0;transform:scale(0.5);}
+40%{opacity:1;}
+100%{opacity:0;transform:scale(1.2);}
+}
+
+/* glowing */
+.glow{
+animation:glow 2s infinite alternate;
+font-weight:bold;
+}
+@keyframes glow{
+from{text-shadow:0 0 10px #fff;}
+to{text-shadow:0 0 25px #ff004c,0 0 40px #ff5f8f;}
+}
+
+/* hearts 1.5x */
+.heart{
+position:fixed;
+top:-40px;
+font-size:36px;
+animation:fall linear infinite;
+}
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(110vh);}
+}
+
+.card{
+background:rgba(255,255,255,0.3);
+padding:40px;
+border-radius:20px;
+max-width:550px;
+z-index:2;
+}
+
+h2{font-size:42px;}
+p{font-size:22px;}
+
+button{
+padding:14px 28px;
+margin:10px;
+border:none;
+border-radius:20px;
+font-size:20px;
+cursor:pointer;
+background:red;
+color:white;
+}
+
+.choco{font-size:45px;cursor:pointer;margin:10px;}
+.bigemoji{font-size:90px;}
+</style>
+</head>
+
+<body>
+
+<!-- music -->
+<audio id="bgmusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f7c2f4e3b.mp3" type="audio/mp3">
+</audio>
+
+<!-- intro -->
+<div id="intro">SAJAL ❤️</div>
+
+<div class="card" id="box" style="opacity:0;">
+<h2>Propose Day 💍</h2>
+<p>
+<span class="glow">Sajal, my 3.5 little baccha 🐣❤️</span><br><br>
+You are my everything.<br>
+Will you stay with me forever?<br><br>
+<b>Don't dare press NO 😏</b>
+</p>
+<button id="yesBtn" onclick="choco()">YES ❤️</button>
+<button id="noBtn" onclick="noClick()">NO</button>
+</div>
+
+<script>
+
+/* start music on first tap (iphone) */
+document.body.addEventListener("click",function(){
+let m=document.getElementById("bgmusic");
+if(m.paused) m.play();
+},{once:true});
+
+/* intro show */
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+document.getElementById("box").style.opacity="1";
+},4000);
+
+/* falling hearts */
+let heartInterval=setInterval(createHeart,300);
+function createHeart(){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
+}
+
+/* no button tease */
+let noCount=0;
+function noClick(){
+noCount++;
+yesBtn.style.transform="scale("+(1+noCount*0.3)+")";
+noBtn.style.transform="scale("+(1-noCount*0.2)+")";
+if(noCount>=4){
+noBtn.style.display="none";
+alert("No is not allowed 😌");
+}
+}
+
+/* Chocolate */
+function choco(){
+box.innerHTML="<h2>Chocolate Day 🍫</h2><p>Tap chocolates</p><div id='c'></div>";
+let msgs=[
+"You're sweeter than chocolate ❤️",
+"Sending you endless kisses 💋",
+"I love the way you make me feel 💕",
+"You are my favorite addiction 😍",
+"I want to share every sweet moment with you 💖"
+];
+for(let i=0;i<5;i++){
+let s=document.createElement("span");
+s.innerHTML="🍫";
+s.className="choco";
+s.onclick=function(){alert(msgs[i]); this.remove(); check();};
+c.appendChild(s);
+}
+}
+function check(){
+if(document.querySelectorAll(".choco").length==0) teddy();
+}
+
+/* Teddy */
+function teddy(){
+box.innerHTML="<h2>Teddy Day 🧸</h2>\
+<div class='bigemoji'>🧸</div>\
+<p>You are my cutest teddy.</p>\
+<button onclick='promise()'>Next ❤️</button>";
+}
+
+/* Promise */
+function promise(){
+box.innerHTML="<h2>Promise Day 🤝</h2>\
+<p>I promise to stay forever, protect you and never disappoint you.</p>\
+<button onclick='hug()'>Next ❤️</button>";
+}
+
+/* Hug with GIF */
+function hug(){
+box.innerHTML="<h2>Hug Day 🤗</h2>\
+<img src='https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif' width='220'><br>\
+<p>Your hug is my safest place.</p>\
+<button onclick='kiss()'>Next ❤️</button>";
+}
+
+/* Kiss with GIF */
+function kiss(){
+box.innerHTML="<h2>Kiss Day 💋</h2>\
+<img src='https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif' width='220'><br>\
+<p>A gentle forehead kiss just for you.</p>\
+<button onclick='valentine()'>Final ❤️</button>";
+}
+
+/* Valentine */
+function valentine(){
+document.body.style.background="linear-gradient(270deg,#ff7aa2,#ff4f88,#ff9ab0)";
+clearInterval(heartInterval);
+heartInterval=setInterval(createHeart,120);
+
+box.innerHTML="<h2>❤️ Happy Valentine's Day ❤️</h2>\
+<p class='glow'>Sajal, my 3.5 little baccha 🐣❤️</p>\
+<p>Will you be my Valentine forever?</p>\
+<button onclick='explode()'>YES ❤️</button>";
+}
+
+/* heart explosion */
+function explode(){
+for(let i=0;i<200;i++){
+let h=document.createElement("div");
+h.innerHTML="❤️";
+h.style.position="absolute";
+h.style.left="50%";
+h.style.top="50%";
+h.style.transform=`translate(${Math.random()*400-200}px,${Math.random()*400-200}px)`;
+document.body.appendChild(h);
+}
+alert("She said YES ❤️ Forever starts now.");
+}
+
+</script>
+
+</body>
+</html>
